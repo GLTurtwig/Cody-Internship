@@ -16712,3 +16712,9 @@ img {
 .no-cursor {
   cursor: not-allowed;
 }
+
+.slider__wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
