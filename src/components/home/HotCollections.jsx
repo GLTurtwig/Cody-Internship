@@ -1,10 +1,8 @@
 // https://us-central1-nft-cloud-functions.cloudfunctions.net/hotCollections
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios';
-import AuthorImage from "../../images/author_thumbnail.jpg";
-import nftImage from "../../images/nftImage.jpg";
 import 'keen-slider/keen-slider.min.css'
 import { useKeenSlider } from 'keen-slider/react'
 import Skeleton from "../UI/Skeleton";
@@ -78,6 +76,9 @@ const HotCollections = () => {
     }
   }, [hotCollection, instanceRef]);
 
+  const handleImageLoad = () => {
+    instanceRef.current?.update();
+  };
   console.log(hotCollection)
 
 
@@ -93,7 +94,7 @@ const HotCollections = () => {
           </div>
 
          
-          <div className="slider__wrapper">
+            <div className="slider__wrapper">
 
             <button className="owl-prev"onClick={() => instanceRef.current?.prev()}>
               {arrowLeft}
@@ -139,7 +140,12 @@ const HotCollections = () => {
                         <div className="nft_coll">
                           <div className="nft_wrap">
                             <Link to="/item-details">
-                              <img src={collection.nftImage} className="lazy img-fluid" alt="" />
+                              <img
+                                src={collection.nftImage}
+                                className="lazy img-fluid"
+                                alt=""
+                                onLoad={handleImageLoad}
+                              />
                             </Link>
                           </div>
                           <div className="nft_coll_pp">
