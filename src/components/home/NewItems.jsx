@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 import 'keen-slider/keen-slider.min.css'
 import { useKeenSlider } from 'keen-slider/react'
+import Countdown from "../UI/Countdown";
 
 const NewItems = () => {
   const [newItems, setNewItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const arrowLeft = "<";
   const arrowRight = ">";
@@ -15,15 +17,16 @@ const NewItems = () => {
       try {
         const response = await axios.get('https://us-central1-nft-cloud-functions.cloudfunctions.net/newItems');
         setNewItems(response.data);
+        //setLoading(false);
       } catch (error) {
-        console.error('Error fetching new items:', error);
+        //console.error('Error fetching new items:', error);
       }
     };
 
     fetchNewItems();
   }, []);
 
-  console.log('New Items:', newItems); // Log the fetched new items for debugging
+  //console.log('New Items:', newItems); // Log the fetched new items for debugging
 
 
   const [sliderRef, instanceRef] = useKeenSlider(
@@ -90,12 +93,16 @@ const NewItems = () => {
             </button>
 
             <div ref={sliderRef} className="keen-slider">
-              {newItems.map((item, index) => (
-                <div
-                  className="keen-slider__slide"
-                  key={item.id || index}
-                >
-                  <div className="nft__item">
+              
+              {loading ? (
+                <div> loading </div>
+              ) : (
+                newItems.map((item, index) => (
+                  <div
+                    className="keen-slider__slide"
+                    key={item.id || index}
+                  >
+                    <div className="nft__item">
                     <div className="author_list_pp">
                       <Link
                         to={`/author/${item.authorId}`}
@@ -112,7 +119,7 @@ const NewItems = () => {
                       </Link>
                     </div>
 
-                    <div className="de_countdown">5:30:32</div>
+                    {item.expiryDate && <Countdown timeID={item.expiryDate} />}
 
                     <div className="nft__item_wrap">
                       <div className="nft__item_extra">
@@ -137,7 +144,7 @@ const NewItems = () => {
                         </div>
                       </div>
 
-                      <Link to={`/item-details/${item.id}`}>
+                      <Link to={`/item-details/${item.nftId}`}>
                         <img
                           src={item.nftImage}
                           className="lazy nft__item_preview"
@@ -162,7 +169,8 @@ const NewItems = () => {
                     </div>
                   </div>
                 </div>
-              ))}
+              ))
+              )}
             </div>
 
             <button
