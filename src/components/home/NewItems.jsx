@@ -27,7 +27,7 @@ const NewItems = () => {
     setLoading(false);
   }, []);
 
-  //console.log('New Items:', newItems); // Log the fetched new items for debugging
+  //console.log('New Items:', newItems); // log the newItems state to check if data is being fetched correctly
 
 
   const [sliderRef, instanceRef] = useKeenSlider(
@@ -92,7 +92,7 @@ const NewItems = () => {
             >
               {arrowLeft}
             </button>
-
+            
             <div ref={sliderRef} className="keen-slider">
               {loading ? 
               ([...Array(4)].map((_, index) => (
