@@ -4,6 +4,7 @@ import axios from 'axios';
 import 'keen-slider/keen-slider.min.css'
 import { useKeenSlider } from 'keen-slider/react'
 import Countdown from "../UI/Countdown";
+import Skeleton from '../UI/Skeleton';
 
 const NewItems = () => {
   const [newItems, setNewItems] = useState([]);
@@ -17,13 +18,13 @@ const NewItems = () => {
       try {
         const response = await axios.get('https://us-central1-nft-cloud-functions.cloudfunctions.net/newItems');
         setNewItems(response.data);
-        //setLoading(false);
       } catch (error) {
         //console.error('Error fetching new items:', error);
       }
     };
 
     fetchNewItems();
+    setLoading(false);
   }, []);
 
   //console.log('New Items:', newItems); // Log the fetched new items for debugging
@@ -93,9 +94,43 @@ const NewItems = () => {
             </button>
 
             <div ref={sliderRef} className="keen-slider">
-              
-              {loading ? (
-                <div> loading </div>
+              // Loading state: show skeletons while data is being fetched
+              {loading ? 
+              ([...Array(4)].map((_, index) => (
+                            <div className="keen-slider__slide" key={index}>
+                              <div className="nft_item">
+
+                                <div className="author_list_pp">
+                                  <Skeleton
+                                    width="60px"
+                                    height="60px"
+                                    borderRadius="50%"
+                                  />
+                                </div>
+
+                                <div className="nft__item_wrap">
+                                  <Skeleton
+                                    width="100%"
+                                    height="250px"
+                                    borderRadius="10px"
+                                  />
+                                </div>
+
+                                <div className="nft__item_info">
+                                  <Skeleton
+                                    width="80%"
+                                    height="20px"
+                                    borderRadius="4px"
+                                  />
+                                  <Skeleton
+                                    width="50%"
+                                    height="16px"
+                                    borderRadius="4px"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          ))
               ) : (
                 newItems.map((item, index) => (
                   <div
