@@ -94,7 +94,7 @@ const NewItems = () => {
             </button>
 
             <div ref={sliderRef} className="keen-slider">
-              
+              // Loading state: show skeletons while data is being fetched
               {loading ? 
               ([...Array(4)].map((_, index) => (
                             <div className="keen-slider__slide" key={index}>
