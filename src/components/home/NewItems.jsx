@@ -27,7 +27,7 @@ const NewItems = () => {
     setLoading(false);
   }, []);
 
-  //console.log('New Items:', newItems); // log the newItems state to check if data is being fetched correctly
+  //console.log('New Items:', newItems); // log 
 
 
   const [sliderRef, instanceRef] = useKeenSlider(
