@@ -10,6 +10,8 @@ const Author = () => {
 
   const { id } = useParams();
   const [ author, setAuthor ] = useState();
+  const [ nftCollection, setNftCollection ] = useState([]);
+  const [ image, setImage ] = useState("");
   const [ loading, setLoading ] = useState(true);
   const [ followers, setFollowers ] = useState(0)
   const [ following, setFollowing ] = useState(false);
@@ -22,6 +24,8 @@ const Author = () => {
                 );
                 setAuthor(response.data);
                 setFollowers(response.data.followers);
+                setNftCollection(response.data.nftCollection);
+                setImage(response.data.authorImage)
             } catch (err) {
                 console.error(err);
             } finally {
@@ -31,7 +35,6 @@ const Author = () => {
 
         fetchData();
     }, []);
-
     
     const handleFollowing = () => {
       if (following) {
@@ -95,7 +98,7 @@ const Author = () => {
 
               <div className="col-md-12">
                 <div className="de_tab tab_simple">
-                  <AuthorItems />
+                  <AuthorItems authorItems={nftCollection} loading={loading} pfp={image} />
                 </div>
               </div>
             </div>
