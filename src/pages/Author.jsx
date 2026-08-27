@@ -45,6 +45,11 @@ const Author = () => {
         setFollowing(true);
       }
     };
+
+      useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
+    
   
 
   return (
