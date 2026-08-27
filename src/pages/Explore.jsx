@@ -14,6 +14,7 @@ const Explore = () => {
             duration: 1000,
             once: true,
             easing: 'ease-out-quad'
+            // comment
           });
       },[])
 
