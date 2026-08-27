@@ -1,7 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import AuthorImage from "../../images/author_thumbnail.jpg";
-import nftImage from "../../images/nftImage.jpg";
 import Skeleton from "../UI/Skeleton";
 
 const AuthorItems = ({ authorItems = [], loading=true, pfp=""}) => {
